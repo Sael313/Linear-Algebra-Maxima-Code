@@ -22,3 +22,26 @@ check_row_echelon(A) := block(
     ),
     is_echelon
 )$
+
+check_reduced_row_echelon(A) := block(
+    [rows, cols, pivots, i, j , k, is_reduced_echelon , B],
+    B : to_matrix(A),
+    rows: length(B),
+    cols: length(B[1]),
+    pivots: [],
+    is_reduced_echelon: true,
+    
+    for i:1 thru rows do (
+        j: 1,
+        while j <= cols and A[i][j] = 0 do j: j + 1,
+        if j <= cols then (
+            if not emptyp(pivots) and j <= last(pivots) then is_reduced_echelon: false,
+            pivots: endcons(j, pivots),
+            if A[i][j] # 1 then is_reduced_echelon: false,
+            for k:1 thru rows do (
+                if k # i and A[k][j] # 0 then is_reduced_echelon: false
+            )
+        )
+    ),
+    is_reduced_echelon
+)$
