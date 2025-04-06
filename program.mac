@@ -1,0 +1,24 @@
+
+ to_matrix(L):=block(
+    if matrixp(L) then L
+    else apply('matrix,L)
+ )$
+
+check_row_echelon(A) := block(
+    [rows, cols, pivots, i, j, is_echelon , B],
+    B : to_matrix(A),
+    rows: length(B),
+    cols: length(B[1]),
+    pivots: [],
+    is_echelon: true,
+    
+      for i:1 thru rows do (
+        j: 1,
+        while j <= cols and A[i][j] = 0 do j: j + 1,
+        if j <= cols then (
+            if not emptyp(pivots) and j <= last(pivots) then is_echelon: false,
+            pivots: endcons(j, pivots)
+        )
+    ),
+    is_echelon
+)$
