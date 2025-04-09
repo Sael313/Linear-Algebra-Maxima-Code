@@ -73,3 +73,15 @@ check_permutation(A) := block(
     is_permutation
 )$
 
+
+/* Abolfazl */
+random_lowertriangular(n, x) := block(
+    [B],
+    B : zeromatrix(n, n),
+    for i:1 thru n do(
+        for j:i thru n do(
+            B[i, j] : 2 * random(x) - x
+        )
+    ),
+    B
+)$
