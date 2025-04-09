@@ -73,3 +73,49 @@ check_permutation(A) := block(
     is_permutation
 )$
 
+
+/* Abolfazl */
+random_lowertriangular(n, x) := block(
+    [B],
+    B : zeromatrix(n, n),
+    for i:1 thru n do(
+        for j:i thru n do(
+            B[i, j] : 2 * random(x) - x
+        )
+    ),
+    B
+)$
+
+
+/* Abolfazl */
+random_invertible(n, x) := block(
+    [B],
+    B : zeromatrix(n, n),
+    while determinant(B) = 0 do (
+        for i:1 thru n do (
+            for j:1 thru n do (
+                B[i, j] : 2 * random(x) - x
+            )
+        )
+    ),
+    B
+)$
+
+/* Abolfazl */
+random_permutation(n) := block(
+    [B, A, t1, t2, h1, h2],
+    B : zeromatrix(n, n),
+    A : makelist(i, i, 1, n),
+    for i:1 thru n do(
+        t1 : random(n) + 1,
+        t2 : random(n) + 1,
+        h1 : A[t1],
+        h2 : A[t2],
+        A[t1] : h2,  
+        A[t2] : h1 
+    ),
+    for j:1 thru n do(
+        B[j, A[j]] : 1
+    ),
+    B
+)$
